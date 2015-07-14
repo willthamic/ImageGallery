@@ -2,6 +2,8 @@ html {
 	margin:0;
 	margin-right:0;
 	padding:0;
+	width:100%;
+	height:100%;
 }
 
 body {
@@ -10,6 +12,8 @@ body {
 	margin:0;
 	margin-right:0;
 	padding:0;
+	width:100%;
+	height:100%;
 }
 
 .container {
@@ -26,7 +30,7 @@ body {
 	transform-style: preserve-3d;
 }
 
-#cube div {
+#cube figure {
 	width: 196px;
 	height:196px;
 	display:block;
@@ -34,10 +38,10 @@ body {
 	border: 2px solid black;
 }
 
-#box .front { transform: rotateX(   0deg ) translateZ( 100px ); }
-#box .back  { transform: rotateX( 180deg ) translateZ( 100px ); }
-#box .right { transform: rotateX(  90deg ) translateZ( 100px ); }
-#box .left  { transform: rotateX( -90deg ) translateZ( 100px ); }
+#box .front { transform: rotateX(   0deg ) translateZ( 100px ); background-color:red;}
+#box .back  { transform: rotateX( 180deg ) translateZ( 100px ); background-color:blue;}
+#box .right { transform: rotateX(  90deg ) translateZ( 100px ); background-color:yellow;}
+#box .left  { transform: rotateX( -90deg ) translateZ( 100px ); background-color:green;}
 
 #box.show-front  { transform: translateZ( -100px ) rotateY(    0deg ); }
 #box.show-back   { transform: translateZ( -100px ) rotateX( -180deg ); }
