@@ -4,19 +4,56 @@
         <meta content="text/html; charset=utf-8" http-equiv="content-type">
 		<link type="text/css" rel="stylesheet" href="stylesheet.css">
         <title>CSS Loader</title>
-		<script>
-			document.getElementById("fade").className = "faded";
-		</script>
+		
     </head>
     <body>
-        <div class="container">
-            <div id="box">
-                <figure class="front"></figure>
-                <figure class="back"></figure>
-                <figure class="right"></figure>
-                <figure class="left"></figure>
-            </div>
-        </div>
+		<div id="container" class="dir1">
+			<div class="face face-1">Side 1</div>
+			<div class="face face-2">Side 2</div>
+			<div class="face face-3">Side 3</div>
+			<div class="face face-4">Side 4</div>
+			<div class="face face-5">Side 5</div>
+			<div class="face face-6">Side 6</div>
+		</div>
 		<div id="fade" class="normal" style="position:absolute;"></div>
+		<script>
+			document.getElementById("fade").className = "faded";
+			document.onkeydown = checkKey;
+			var X = 0;
+			var Y = 0;
+			var increment = 15;
+			function checkKey(e) {
+
+				e = e || window.event;
+				
+				if (e.keyCode == '38'&&X>-90) {
+					// up arrow
+					console.log("-X");
+					X = X - increment;
+					document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ(0deg)";
+				}
+				else if (e.keyCode == '40'&&X<90) {
+					// down arrow
+					console.log("+X");
+					X = X + increment;
+					document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ(0deg)";
+				}
+				else if (e.keyCode == '37') {
+				    // left arrow
+					console.log("+Y");
+					Y = Y + increment;
+					document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ(0deg)";
+				}
+				else if (e.keyCode == '39') {
+				   // right arrow
+					console.log("-Y");
+					Y = Y - increment;
+					document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ(0deg)";
+				}
+				
+				console.log(X+","+Y);
+
+			}
+		</script>
     </body>
 </html>
