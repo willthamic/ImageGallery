@@ -23,29 +23,8 @@ body {
 	transition: all 0.5s;
 	perspective-origin: center;
 }
-
-.dir1 {
-	transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-}
-
-.dir2 {
-	transform: rotateX(0deg) rotateY(-90deg) rotateZ(0deg);
-}
-
-.dir3 {
-	transform: rotateX(0deg) rotateY(180deg) rotateZ(0deg);
-}
-
-.dir4 {
-	transform: rotateX(0deg) rotateY(90deg) rotateZ(0deg);
-}
-
-.dir5 {
-	transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
-}
-
-.dir6 {
-	transform: rotateX(90deg) rotateY(0deg) rotateZ(0deg);
+a {
+	text-decoration: none;
 }
 
 
