@@ -3,11 +3,11 @@
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="content-type">
 		<link type="text/css" rel="stylesheet" href="stylesheet.css">
-        <title>CSS Loader</title>
+        <title>Image Gallery</title>
 		
     </head>
     <body>
-		<div style="border:1px solid black; height:750px;">
+		<div style="border:1px solid black; border-bottom:0px; height:720px; width:750px; margin:auto;">
 			<div id="container" class="dir1">
 				<div class="face face-1"><p>1</p></div>
 				<div class="face face-2"><p>2</p></div>
@@ -17,44 +17,86 @@
 				<div class="face face-6"><p>6</p></div>
 			</div>
 		</div>
+		<div style="border:1px solid black; border-top:0px; height:50px; width:750px; margin:auto;">
+			<div style="text-align:center;">
+				<a href="javascript:die(1)"><input type="button" value="1"></a>
+				<a href="javascript:die(2)"><input type="button" value="2"></a>
+				<a href="javascript:die(3)"><input type="button" value="3"></a>
+				<a href="javascript:die(4)"><input type="button" value="4"></a>
+				<a href="javascript:die(5)"><input type="button" value="5"></a>
+				<a href="javascript:die(6)"><input type="button" value="6"></a>
+			</div>
+		</div>
 		<div id="fade" class="normal" style="position:absolute;"></div>
 		<script>
 			document.getElementById("fade").className = "faded";
 			document.onkeydown = checkKey;
 			var X = 0;
 			var Y = 0;
+			var Z = 0;
 			var increment = 15;
+			function die(side) {
+				switch(side) {
+					case 1:
+						X = 0;
+						Y = 0;
+						Z = 0;
+						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
+						break;
+					case 2:
+						X = 0;
+						Y = -90;
+						Z = 0;
+						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
+						break;
+					case 3:
+						X = 0;
+						Y = 180;
+						Z = 0;
+						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
+						break;
+					case 4:
+						X = 0;
+						Y = 90;
+						Z = 0;
+						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
+						break;
+					case 5:
+						X = -90;
+						Y = 0;
+						Z = 0;
+						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
+						break;
+					case 6:
+						X = 90;
+						Y = 0;
+						Z = 0;
+						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
+						break;
+				} 
+			}
 			function checkKey(e) {
 
 				e = e || window.event;
 				
-				if (e.keyCode == '38'&&X>-90) {
-					// up arrow
-					console.log("-X");
+				if (e.keyCode == '87'&&X>-90) { 	//W Key
 					X = X - increment;
-					document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ(0deg)";
+					console.log("-X: "+X+","+Y);
 				}
-				else if (e.keyCode == '40'&&X<90) {
-					// down arrow
-					console.log("+X");
+				else if (e.keyCode == '83'&&X<90) { //S Key
 					X = X + increment;
-					document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ(0deg)";
+					console.log("+X: "+X+","+Y);
 				}
-				else if (e.keyCode == '37') {
-				    // left arrow
-					console.log("+Y");
+				else if (e.keyCode == '65') { 		//A Key
 					Y = Y + increment;
-					document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ(0deg)";
+					console.log("+Y: "+X+","+Y);
 				}
-				else if (e.keyCode == '39') {
-				   // right arrow
-					console.log("-Y");
+				else if (e.keyCode == '68') { 		//D Key
 					Y = Y - increment;
-					document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ(0deg)";
+					console.log("-Y: "+X+","+Y);
 				}
+				document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
 				
-				console.log(X+","+Y);
-
 			}
 		</script>
     </body>
