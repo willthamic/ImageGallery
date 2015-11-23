@@ -3,99 +3,118 @@
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="content-type">
 		<link type="text/css" rel="stylesheet" href="stylesheet.css">
-        <title>Image Gallery</title>
+		<script src="jquery.min.js"></script>
+		<title>Image Gallery</title>
 		
     </head>
     <body>
 		<div style="border:1px solid black; border-bottom:0px; height:720px; width:750px; margin:auto;">
-			<div id="container" class="dir1">
-				<div class="face face-1"><p>1</p></div>
-				<div class="face face-2"><p>2</p></div>
-				<div class="face face-3"><p>3</p></div>
-				<div class="face face-4"><p>4</p></div>
-				<div class="face face-5"><p>5</p></div>
-				<div class="face face-6"><p>6</p></div>
+			<div id="dieContainer">
+				<div class="die-face die-face-1"><p>1</p></div>
+				<div class="die-face die-face-2"><p>2</p></div>
+				<div class="die-face die-face-3"><p>3</p></div>
+				<div class="die-face die-face-4"><p>4</p></div>
+				<div class="die-face die-face-5"><p>5</p></div>
+				<div class="die-face die-face-6"><p>6</p></div>
 			</div>
 		</div>
 		<div style="border:1px solid black; border-top:0px; height:50px; width:750px; margin:auto;">
 			<div style="text-align:center;">
-				<a href="javascript:die(1)"><input type="button" value="1"></a>
-				<a href="javascript:die(2)"><input type="button" value="2"></a>
-				<a href="javascript:die(3)"><input type="button" value="3"></a>
-				<a href="javascript:die(4)"><input type="button" value="4"></a>
-				<a href="javascript:die(5)"><input type="button" value="5"></a>
-				<a href="javascript:die(6)"><input type="button" value="6"></a>
+				<a href="javascript:set(  0,  0,0, 1)"><input type="button" value="1"></a>
+				<a href="javascript:set(  0,-90,0, 1)"><input type="button" value="2"></a>
+				<a href="javascript:set(  0,180,0, 1)"><input type="button" value="3"></a>
+				<a href="javascript:set(  0, 90,0, 1)"><input type="button" value="4"></a>
+				<a href="javascript:set(-90,  0,0, 1)"><input type="button" value="5"></a>
+				<a href="javascript:set( 90,  0,0, 1)"><input type="button" value="6"></a>
+			</div>
+		</div>
+		<div style="border:1px solid black; border-bottom:0px; height:870px; width:850px; margin:auto;">
+			<div id="octaContainer">
+				<div class="octa-face octa-face-1"><p>1</p></div>
+				<div class="octa-face octa-face-2"><p>2</p></div>
+				<div class="octa-face octa-face-3"><p>3</p></div>
+				<div class="octa-face octa-face-4"><p>4</p></div>
+				<div class="octa-face octa-face-5"><p>5</p></div>
+				<div class="octa-face octa-face-6"><p>6</p></div>
+				<div class="octa-face octa-face-7"><p>7</p></div>
+				<div class="octa-face octa-face-8"><p>8</p></div>
+			</div>
+		</div>
+		<div style="border:1px solid black; border-top:0px; height:50px; width:850px; margin:auto;">
+			<div style="text-align:center;">
+				<a href="javascript:dieCurY = dieCurY+45; set(0,dieCurY,0,2);"><input type="button" value="-"></a>
+				<a href="javascript:dieCurY = dieCurY-45; set(0,dieCurY,0,2);"><input type="button" value="+"></a>
 			</div>
 		</div>
 		<div id="fade" class="normal" style="position:absolute;"></div>
 		<script>
 			document.getElementById("fade").className = "faded";
-			document.onkeydown = checkKey;
-			var X = 0;
-			var Y = 0;
-			var Z = 0;
-			var increment = 15;
-			function die(side) {
-				switch(side) {
-					case 1:
-						X = 0;
-						Y = 0;
-						Z = 0;
-						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
-						break;
-					case 2:
-						X = 0;
-						Y = -90;
-						Z = 0;
-						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
-						break;
-					case 3:
-						X = 0;
-						Y = 180;
-						Z = 0;
-						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
-						break;
-					case 4:
-						X = 0;
-						Y = 90;
-						Z = 0;
-						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
-						break;
-					case 5:
-						X = -90;
-						Y = 0;
-						Z = 0;
-						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
-						break;
-					case 6:
-						X = 90;
-						Y = 0;
-						Z = 0;
-						document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
-						break;
-				} 
+			document.onkeydown = checkKey;				//set keydown function
+			
+			var dieCurX  = 0,							//Create Variables
+			    dieCurY  = 0,							
+			    dieCurZ  = 0,
+				octaCurX = 0,
+			    octaCurY = 0,
+			    octaCurZ = 0;
+				increment = 7.5,
+				shape = 0;
+			
+			function set (nX,nY,nZ,shape) { 			//Create function with variables new X, new Y, new Z, and shape.
+				if (shape == 1) {						//check if shape 1
+					dieCurX = nX;						//
+					dieCurY = nY;						//set variables
+					dieCurZ = nZ;						//
+				} else if (shape == 2) {				//check if shape 2
+					octaCurX = nX;						//
+					octaCurY = nY;						//set variables
+					octaCurZ = nZ;						//
+				}
+				document.getElementById( "dieContainer").style.transform = "rotateX("+dieCurX+"deg) rotateY("+dieCurY+"deg) rotateZ("+dieCurZ+"deg)";
+				document.getElementById("octaContainer").style.transform = "rotateX("+octaCurX+"deg) rotateY("+octaCurY+"deg) rotateZ("+octaCurZ+"deg)";
 			}
-			function checkKey(e) {
-
-				e = e || window.event;
-				
-				if (e.keyCode == '87'&&X>-90) { 	//W Key
-					X = X - increment;
-					console.log("-X: "+X+","+Y);
+			
+			function checkKey(e) {												//keydown functions
+				var x = window.pageYOffset - (window.innerHeight/2);			//set x t value of middle page
+				if (x < 0) {													//check if page offset is section 1
+					e = e || window.event;
+					if (e.keyCode == '87'&&dieCurX>-90) { 						//W Key & flip prevention
+						dieCurX = dieCurX - increment;							//decrement X
+						console.log("Die: -X, "+dieCurX+","+dieCurY);			//log
+					}
+					else if (e.keyCode == '83'&&dieCurX<90) { 					//S Key & flip prevention
+						dieCurX = dieCurX + increment;							//increment X
+						console.log("Die: +X, "+dieCurX+","+dieCurY);			//log
+					}
+					else if (e.keyCode == '65') { 								//A Key
+						dieCurY = dieCurY + increment;							//increment Y
+						console.log("Die: +Y, "+dieCurX+","+dieCurY);			//log
+					}
+					else if (e.keyCode == '68') { 								//D Key
+						dieCurY = dieCurY - increment;							//decrement Y
+						console.log("Die: -Y, "+dieCurX+","+dieCurY);			//log
+					}
+					set(dieCurX,dieCurY,dieCurZ,shape);							//Set Rotation
+				} else if (x < 770&&x >= 0) { 									//Check if page offset is section 2
+					e = e || window.event;
+					if (e.keyCode == '87'&&octaCurX>-90) { 						//W Key & flip prevention
+						octaCurX = octaCurX - increment;						//decrement X
+						console.log("octa: -X, "+octaCurX+","+octaCurY);		//log
+					}
+					else if (e.keyCode == '83'&&octaCurX<90) { 					//S Key & flip prevention
+						octaCurX = octaCurX + increment;						//increment X
+						console.log("octa: +X, "+octaCurX+","+octaCurY);		//log
+					}
+					else if (e.keyCode == '65') { 								//A Key
+						octaCurY = octaCurY + increment;						//increment Y
+						console.log("octa: +Y, "+octaCurX+","+octaCurY);		//log
+					}
+					else if (e.keyCode == '68') { 								//D Key
+						octaCurY = octaCurY - increment; 						//decrement Y
+						console.log("octa: -Y, "+octaCurX+","+octaCurY);		//log
+					}
+					set(octaCurX,octaCurY,octaCurZ,shape);						//Set Rotation
 				}
-				else if (e.keyCode == '83'&&X<90) { //S Key
-					X = X + increment;
-					console.log("+X: "+X+","+Y);
-				}
-				else if (e.keyCode == '65') { 		//A Key
-					Y = Y + increment;
-					console.log("+Y: "+X+","+Y);
-				}
-				else if (e.keyCode == '68') { 		//D Key
-					Y = Y - increment;
-					console.log("-Y: "+X+","+Y);
-				}
-				document.getElementById("container").style.transform = "rotateX("+X+"deg) rotateY("+Y+"deg) rotateZ("+Z+"deg)";
 				
 			}
 		</script>
