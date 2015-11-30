@@ -69,8 +69,24 @@
 					octaCurY = nY;						//set variables
 					octaCurZ = nZ;						//
 				}
-				document.getElementById( "dieContainer").style.transform = "rotateX("+dieCurX+"deg) rotateY("+dieCurY+"deg) rotateZ("+dieCurZ+"deg)";
+				document.getElementById( "dieContainer").style.transform = "rotateX("+ dieCurX+"deg) rotateY("+ dieCurY+"deg) rotateZ("+ dieCurZ+"deg)";
 				document.getElementById("octaContainer").style.transform = "rotateX("+octaCurX+"deg) rotateY("+octaCurY+"deg) rotateZ("+octaCurZ+"deg)";
+			}
+			
+			function output (shape, dir) {
+				if (shape == "Die") {
+					var xSpace = new Array(10 -  dieCurX.toFixed(1).length).join(" "); //Create spacing strings to align output in columns
+					var ySpace = new Array(10 -  dieCurY.toFixed(1).length).join(" "); //'10 - ...' makes total places when together 9   '.toFixed(1)' rounds to 1 decimal place
+					var zSpace = new Array(10 -  dieCurZ.toFixed(1).length).join(" "); //'.length' gets the length of the string         '.join(" ")' adds the resulting amount of spaces
+					console.log(shape + "  " + dir + ": " + xSpace +  dieCurX.toFixed(1) + "," + ySpace +  dieCurY.toFixed(1) + "," + zSpace +  dieCurZ.toFixed(1)); //log
+				} else if (shape == "Octa") {
+					var xSpace = new Array(10 - octaCurX.toFixed(1).length).join(" "); //see lines 78-80
+					var ySpace = new Array(10 - octaCurY.toFixed(1).length).join(" ");
+					var zSpace = new Array(10 - octaCurZ.toFixed(1).length).join(" ");
+					console.log(shape + " "  + dir + ": " + xSpace + octaCurX.toFixed(1) + "," + ySpace + octaCurY.toFixed(1) + "," + zSpace + octaCurZ.toFixed(1)); //log
+				} else {
+					console.log("Unrecognized Shape");
+				}
 			}
 			
 			function checkKey(e) {												//keydown functions
@@ -79,38 +95,37 @@
 					e = e || window.event;
 					if (e.keyCode == '87'&&dieCurX>-90) { 						//W Key & flip prevention
 						dieCurX = dieCurX - increment;							//decrement X
-						console.log("Die: -X, "+dieCurX+","+dieCurY);			//log
+						output("Die", "-X");									//log
 					}
 					else if (e.keyCode == '83'&&dieCurX<90) { 					//S Key & flip prevention
 						dieCurX = dieCurX + increment;							//increment X
-						console.log("Die: +X, "+dieCurX+","+dieCurY);			//log
+						output("Die", "+X");									//log
 					}
 					else if (e.keyCode == '65') { 								//A Key
 						dieCurY = dieCurY + increment;							//increment Y
-						console.log("Die: +Y, "+dieCurX+","+dieCurY);			//log
+						output("Die", "+Y");									//log
 					}
 					else if (e.keyCode == '68') { 								//D Key
 						dieCurY = dieCurY - increment;							//decrement Y
-						console.log("Die: -Y, "+dieCurX+","+dieCurY);			//log
+						output("Die", "-Y");									//log
 					}
 					set(dieCurX,dieCurY,dieCurZ,shape);							//Set Rotation
 				} else if (x < 770&&x >= 0) { 									//Check if page offset is section 2
-					e = e || window.event;
 					if (e.keyCode == '87'&&octaCurX>-90) { 						//W Key & flip prevention
 						octaCurX = octaCurX - increment;						//decrement X
-						console.log("octa: -X, "+octaCurX+","+octaCurY);		//log
+						output("Octa", "-X");									//log
 					}
 					else if (e.keyCode == '83'&&octaCurX<90) { 					//S Key & flip prevention
 						octaCurX = octaCurX + increment;						//increment X
-						console.log("octa: +X, "+octaCurX+","+octaCurY);		//log
+						output("Octa", "+X");									//log
 					}
 					else if (e.keyCode == '65') { 								//A Key
 						octaCurY = octaCurY + increment;						//increment Y
-						console.log("octa: +Y, "+octaCurX+","+octaCurY);		//log
+						output("Octa", "+Y");									//log
 					}
 					else if (e.keyCode == '68') { 								//D Key
 						octaCurY = octaCurY - increment; 						//decrement Y
-						console.log("octa: -Y, "+octaCurX+","+octaCurY);		//log
+						output("Octa", "-Y");									//log
 					}
 					set(octaCurX,octaCurY,octaCurZ,shape);						//Set Rotation
 				}
