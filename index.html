@@ -58,6 +58,7 @@
 			    octaCurY  =   0,
 			    octaCurZ  =   0,
 				increment = 7.5,
+				debug   = false,
 				shape     =   0;
 			
 			function set (nX,nY,nZ,shape) { 			//Create function with variables new X, new Y, new Z, and shape.
@@ -75,18 +76,20 @@
 			}
 			
 			function output (shape, dir) {
-				if (shape == "Die") {
-					var xSpace = new Array(10 -  dieCurX.toFixed(1).length).join(" "); //Create spacing strings to align output in columns
-					var ySpace = new Array(10 -  dieCurY.toFixed(1).length).join(" "); //'10 - ...' makes total places when together 9   '.toFixed(1)' rounds to 1 decimal place
-					var zSpace = new Array(10 -  dieCurZ.toFixed(1).length).join(" "); //'.length' gets the length of the string         '.join(" ")' adds the resulting amount of spaces
-					console.log(shape + "  " + dir + ": " + xSpace +  dieCurX.toFixed(1) + "," + ySpace +  dieCurY.toFixed(1) + "," + zSpace +  dieCurZ.toFixed(1)); //log
-				} else if (shape == "Octa") {
-					var xSpace = new Array(10 - octaCurX.toFixed(1).length).join(" "); //see lines 78-80
-					var ySpace = new Array(10 - octaCurY.toFixed(1).length).join(" ");
-					var zSpace = new Array(10 - octaCurZ.toFixed(1).length).join(" ");
-					console.log(shape + " "  + dir + ": " + xSpace + octaCurX.toFixed(1) + "," + ySpace + octaCurY.toFixed(1) + "," + zSpace + octaCurZ.toFixed(1)); //log
-				} else {
-					console.log("Unrecognized Shape");
+				if (debug == true) {
+					if (shape == "Die") {
+						var xSpace = new Array(10 -  dieCurX.toFixed(1).length).join(" "); //Create spacing strings to align output in columns
+						var ySpace = new Array(10 -  dieCurY.toFixed(1).length).join(" "); //'10 - ...' makes total places when together 9   '.toFixed(1)' rounds to 1 decimal place
+						var zSpace = new Array(10 -  dieCurZ.toFixed(1).length).join(" "); //'.length' gets the length of the string         '.join(" ")' adds the resulting amount of spaces
+						console.log(shape + "  " + dir + ": " + xSpace +  dieCurX.toFixed(1) + "," + ySpace +  dieCurY.toFixed(1) + "," + zSpace +  dieCurZ.toFixed(1)); //log
+					} else if (shape == "Octa") {
+						var xSpace = new Array(10 - octaCurX.toFixed(1).length).join(" "); //see lines 78-80
+						var ySpace = new Array(10 - octaCurY.toFixed(1).length).join(" ");
+						var zSpace = new Array(10 - octaCurZ.toFixed(1).length).join(" ");
+						console.log(shape + " "  + dir + ": " + xSpace + octaCurX.toFixed(1) + "," + ySpace + octaCurY.toFixed(1) + "," + zSpace + octaCurZ.toFixed(1)); //log
+					} else {
+						console.log("Unrecognized Shape");
+					}
 				}
 			}
 			
@@ -130,6 +133,9 @@
 					}
 					set(octaCurX,octaCurY,octaCurZ,shape);						//Set Rotation
 				}
+			}
+			function startDebug (input) {
+				debug = input;
 			}
 		</script>
     </body>
