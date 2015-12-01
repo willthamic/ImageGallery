@@ -19,12 +19,12 @@
 		</div>
 		<div style="border:1px solid black; border-top:0px; height:50px; width:750px; margin:auto;">
 			<div style="text-align:center;">
-				<a href="javascript:set(  0,  0,0, 1)"><input type="button" value="1"></a>
-				<a href="javascript:set(  0,-90,0, 1)"><input type="button" value="2"></a>
-				<a href="javascript:set(  0,180,0, 1)"><input type="button" value="3"></a>
-				<a href="javascript:set(  0, 90,0, 1)"><input type="button" value="4"></a>
-				<a href="javascript:set(-90,  0,0, 1)"><input type="button" value="5"></a>
-				<a href="javascript:set( 90,  0,0, 1)"><input type="button" value="6"></a>
+				<a href="javascript:set(  0,  0,0, 1)><input type="button" value="1"></a>
+				<a href="javascript:set(  0,-90,0, 1)><input type="button" value="2"></a>
+				<a href="javascript:set(  0,180,0, 1)><input type="button" value="3"></a>
+				<a href="javascript:set(  0, 90,0, 1)><input type="button" value="4"></a>
+				<a href="javascript:set(-90,  0,0, 1)><input type="button" value="5"></a>
+				<a href="javascript:set( 90,  0,0, 1)><input type="button" value="6"></a>
 			</div>
 		</div>
 		<div style="border:1px solid black; border-bottom:0px; height:870px; width:850px; margin:auto;">
@@ -88,7 +88,7 @@
 						var zSpace = new Array(10 - octaCurZ.toFixed(1).length).join(" ");
 						console.log(shape + " "  + dir + ": " + xSpace + octaCurX.toFixed(1) + "," + ySpace + octaCurY.toFixed(1) + "," + zSpace + octaCurZ.toFixed(1)); //log
 					} else {
-						console.log("Unrecognized Shape");
+						console.log("Unrecognized Shape"); //error log
 					}
 				}
 			}
@@ -113,7 +113,7 @@
 						dieCurY = dieCurY - increment;							//decrement Y
 						output("Die", "-Y");									//log
 					}
-					set(dieCurX,dieCurY,dieCurZ,shape);							//Set Rotation
+					set(dieCurX,dieCurY,dieCurZ,1);								//Set Rotation
 				} else if (x < 770&&x >= 0) { 									//Check if page offset is section 2
 					if (e.keyCode == '87'&&octaCurX>-90) { 						//W Key & flip prevention
 						octaCurX = octaCurX - increment;						//decrement X
@@ -131,7 +131,7 @@
 						octaCurY = octaCurY - increment; 						//decrement Y
 						output("Octa", "-Y");									//log
 					}
-					set(octaCurX,octaCurY,octaCurZ,shape);						//Set Rotation
+					set(octaCurX,octaCurY,octaCurZ,2);							//Set Rotation
 				}
 			}
 			function startDebug (input) {
