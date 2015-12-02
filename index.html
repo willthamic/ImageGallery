@@ -19,12 +19,12 @@
 		</div>
 		<div style="border:1px solid black; border-top:0px; height:50px; width:750px; margin:auto;">
 			<div style="text-align:center;">
-				<a href="javascript:set(  0,  0,0, 1)><input type="button" value="1"></a>
-				<a href="javascript:set(  0,-90,0, 1)><input type="button" value="2"></a>
-				<a href="javascript:set(  0,180,0, 1)><input type="button" value="3"></a>
-				<a href="javascript:set(  0, 90,0, 1)><input type="button" value="4"></a>
-				<a href="javascript:set(-90,  0,0, 1)><input type="button" value="5"></a>
-				<a href="javascript:set( 90,  0,0, 1)><input type="button" value="6"></a>
+				<a href="javascript:set(  0,  0,0, 1)"><input type="button" value="1"></a>
+				<a href="javascript:set(  0,-90,0, 1)"><input type="button" value="2"></a>
+				<a href="javascript:set(  0,180,0, 1)"><input type="button" value="3"></a>
+				<a href="javascript:set(  0, 90,0, 1)"><input type="button" value="4"></a>
+				<a href="javascript:set(-90,  0,0, 1)"><input type="button" value="5"></a>
+				<a href="javascript:set( 90,  0,0, 1)"><input type="button" value="6"></a>
 			</div>
 		</div>
 		<div style="border:1px solid black; border-bottom:0px; height:870px; width:850px; margin:auto;">
@@ -41,8 +41,22 @@
 		</div>
 		<div style="border:1px solid black; border-top:0px; height:50px; width:850px; margin:auto;">
 			<div style="text-align:center;">
-				<a href="javascript:dieCurY = dieCurY+45; set(0,dieCurY,0,2);"><input type="button" value="-"></a>
-				<a href="javascript:dieCurY = dieCurY-45; set(0,dieCurY,0,2);"><input type="button" value="+"></a>
+				<a href="javascript:octaCurY = octaCurY+45; set(0,octaCurY,0,2);"><input type="button" value="-"></a>
+				<a href="javascript:octaCurY = octaCurY-45; set(0,octaCurY,0,2);"><input type="button" value="+"></a>
+			</div>
+		</div>
+		<div style="border:1px solid black; border-bottom:0px; height:870px; width:850px; margin:auto;">
+			<div id="flipContainer">
+				<div id="flip1" class="flip-face flip-face-1"><p>1</p></div>
+				<div id="flip2" class="flip-face flip-face-2"><p>2</p></div>
+				<div id="flip3" class="flip-face flip-face-3"><p>3</p></div>
+				<div id="flip4" class="flip-face flip-face-4"><p>4</p></div>
+			</div>
+		</div>
+		<div style="border:1px solid black; border-top:0px; height:50px; width:850px; margin:auto;">
+			<div style="text-align:center;">
+				<a href="javascript:if (flipReady) {flipCurY = flipCurY+180; set(0,flipCurY,0,3);};"><input type="button" value="-"></a>
+				<a href="javascript:if (flipReady) {flipCurY = flipCurY-180; set(0,flipCurY,0,3);};"><input type="button" value="+"></a>
 			</div>
 		</div>
 		<div id="fade" class="normal" style="position:absolute;"></div>
@@ -57,9 +71,18 @@
 				octaCurX  =   0,
 			    octaCurY  =   0,
 			    octaCurZ  =   0,
+				flipCurX  =   0,
+			    flipCurY  =   0,
+			    flipCurZ  =   0,
 				increment = 7.5,
 				debug   = false,
+				flipReady= true,
 				shape     =   0;
+				
+			document.getElementById("flip1").style.opacity = 1;
+			document.getElementById("flip2").style.opacity = 1;
+			document.getElementById("flip3").style.opacity = 0;
+			document.getElementById("flip4").style.opacity = 0;
 			
 			function set (nX,nY,nZ,shape) { 			//Create function with variables new X, new Y, new Z, and shape.
 				if (shape == 1) {						//check if shape 1
@@ -70,9 +93,32 @@
 					octaCurX = nX;						//
 					octaCurY = nY;						//set variables
 					octaCurZ = nZ;						//
+				} else if (shape == 3) {		//check if shape 3
+					flipCurX = nX;						//
+					flipCurY = nY;						//set variables
+					flipCurZ = nZ;						//
+					flipReady=false;
+					setTimeout(function(){flipSwitch();  }, 300);
+					setTimeout(function(){flipReady=true;}, 600);
 				}
 				document.getElementById( "dieContainer").style.transform = "rotateX("+ dieCurX+"deg) rotateY("+ dieCurY+"deg) rotateZ("+ dieCurZ+"deg)";
 				document.getElementById("octaContainer").style.transform = "rotateX("+octaCurX+"deg) rotateY("+octaCurY+"deg) rotateZ("+octaCurZ+"deg)";
+				document.getElementById("flipContainer").style.transform = "rotateX("+flipCurX+"deg) rotateY("+flipCurY+"deg) rotateZ("+flipCurZ+"deg)";
+			}
+			
+			function flipSwitch() {
+				console.log(flipCurY%720);
+				if (flipCurY%720==0||flipCurY%720==-180||flipCurY%720==540) {
+					document.getElementById("flip1").style.opacity = 1;
+					document.getElementById("flip2").style.opacity = 1;
+					document.getElementById("flip3").style.opacity = 0;
+					document.getElementById("flip4").style.opacity = 0;
+				} else {
+					document.getElementById("flip1").style.opacity = 0;
+					document.getElementById("flip2").style.opacity = 0;
+					document.getElementById("flip3").style.opacity = 1;
+					document.getElementById("flip4").style.opacity = 1;
+				}
 			}
 			
 			function output (shape, dir) {
@@ -87,6 +133,11 @@
 						var ySpace = new Array(10 - octaCurY.toFixed(1).length).join(" ");
 						var zSpace = new Array(10 - octaCurZ.toFixed(1).length).join(" ");
 						console.log(shape + " "  + dir + ": " + xSpace + octaCurX.toFixed(1) + "," + ySpace + octaCurY.toFixed(1) + "," + zSpace + octaCurZ.toFixed(1)); //log
+					} else if (shape == "Flip") {
+						var xSpace = new Array(10 - flipCurX.toFixed(1).length).join(" "); //see lines 78-80
+						var ySpace = new Array(10 - flipCurY.toFixed(1).length).join(" ");
+						var zSpace = new Array(10 - flipCurZ.toFixed(1).length).join(" ");
+						console.log(shape + " "  + dir + ": " + xSpace + flipCurX.toFixed(1) + "," + ySpace + flipCurY.toFixed(1) + "," + zSpace + flipCurZ.toFixed(1)); //log
 					} else {
 						console.log("Unrecognized Shape"); //error log
 					}
@@ -115,11 +166,11 @@
 					}
 					set(dieCurX,dieCurY,dieCurZ,1);								//Set Rotation
 				} else if (x < 770&&x >= 0) { 									//Check if page offset is section 2
-					if (e.keyCode == '87'&&octaCurX>-90) { 						//W Key & flip prevention
+					if (e.keyCode == '87'&&octaCurX>-82.5) { 					//W Key & flip prevention
 						octaCurX = octaCurX - increment;						//decrement X
 						output("Octa", "-X");									//log
 					}
-					else if (e.keyCode == '83'&&octaCurX<90) { 					//S Key & flip prevention
+					else if (e.keyCode == '83'&&octaCurX<82.5) { 				//S Key & flip prevention
 						octaCurX = octaCurX + increment;						//increment X
 						output("Octa", "+X");									//log
 					}
@@ -132,10 +183,36 @@
 						output("Octa", "-Y");									//log
 					}
 					set(octaCurX,octaCurY,octaCurZ,2);							//Set Rotation
+				} else if (x < 1540&&x >= 770&&flipReady) { 								//Check if page offset is section 2
+					if (e.keyCode == '87'&&flipCurX>-82.5) {			//W Key & flip prevention
+						flipCurX = flipCurX - 180;								//decrement X
+						output("Flip", "-X");									//log
+					}
+					else if (e.keyCode == '83'&&flipCurX<82.5) {				//S Key & flip prevention
+						flipCurX = flipCurX + 180;								//increment X
+						output("Flip", "+X");									//log
+					}
+					else if (e.keyCode == '65') { 								//A Key
+						flipCurY = flipCurY + 180;								//increment Y
+						output("Flip", "+Y");									//log
+					}
+					else if (e.keyCode == '68') { 								//D Key
+						flipCurY = flipCurY - 180; 								//decrement Y
+						output("Flip", "-Y");									//log
+					}
+					set(flipCurX,flipCurY,flipCurZ,3);							//Set Rotation
 				}
 			}
-			function startDebug (input) {
+			function debugging (input) {
 				debug = input;
+				if (debug) {
+					console.log("Debugging Enabled");
+				} else {
+					console.log("Debugging Disabled")
+				}
+				output("Die" ,"  ");
+				output("Octa","  ");
+				output("Flip","  ");
 			}
 		</script>
     </body>

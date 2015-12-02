@@ -15,6 +15,16 @@ body {
 	height:calc(100%-00px);
 }
 
+/*
+########  #### ######## 
+##     ##  ##  ##       
+##     ##  ##  ##       
+##     ##  ##  ######   
+##     ##  ##  ##       
+##     ##  ##  ##       
+########  #### ######## 
+*/
+
 #dieContainer {
 	width:var(--dieScale);
 	margin:auto;
@@ -41,14 +51,6 @@ a {
 	font-family:sans-serif;
 	text-align:center;
 	margin-top:90px;
-	color:white;
-}
-
-.octa-face p {
-	font-size:200px;
-	font-family:sans-serif;
-	text-align:center;
-	margin-top:50px;
 	color:white;
 }
 
@@ -80,6 +82,22 @@ a {
 .die-face-6{
 	background-color:pink;
 	transform: translateY(calc(-1*var(--dieScale)/2))rotateX(270deg)translateZ(calc(var(--dieScale2)/2));
+}
+/*
+ #######   ######  ########    ###    
+##     ## ##    ##    ##      ## ##   
+##     ## ##          ##     ##   ##  
+##     ## ##          ##    ##     ## 
+##     ## ##          ##    ######### 
+##     ## ##    ##    ##    ##     ## 
+ #######   ######     ##    ##     ## 
+*/
+.octa-face p {
+	font-size:200px;
+	font-family:sans-serif;
+	text-align:center;
+	margin-top:50px;
+	color:white;
 }
 
 #octaContainer {
@@ -138,6 +156,60 @@ a {
 	transform: translateY(calc(-1*var(--octaScale)/2))rotateY(-45deg)translateZ(calc(var(--octaScale2)*1.207106781));
 }
 
+/*           
+######## ##       #### ########  
+##       ##        ##  ##     ## 
+##       ##        ##  ##     ## 
+######   ##        ##  ########  
+##       ##        ##  ##        
+##       ##        ##  ##        
+##       ######## #### ##  
+*/		
+
+.flip-face p {
+	font-size:200px;
+	font-family:sans-serif;
+	text-align:center;
+	margin-top:90px;
+	color:white;
+}
+
+#flipContainer {
+	width:var(--flipScale);
+	margin:auto;
+	margin-top:425px;
+	transform-style: preserve-3d;
+	transition: all ease-in-out 0.6s;
+	perspective-origin: center;
+}
+
+.flip-face {
+	width:var(--flipScale);
+	height:var(--flipScale);
+	position:absolute;
+	border:4px solid black;
+}
+
+.flip-face-1{
+	background-color:red;
+	transform: translateY(calc(-1*var(--flipScale)/2))rotateY(000deg)translateZ(0.1px);
+}
+
+.flip-face-2{
+	background-color:blue;
+	transform: translateY(calc(-1*var(--flipScale)/2))rotateY(180deg)translateZ(0.1px);
+}
+
+.flip-face-3{
+	background-color:yellow;
+	transform: translateY(calc(-1*var(--flipScale)/2))rotateY(360deg)translateZ(0.1px);
+}
+
+.flip-face-4{
+	background-color:green;
+	transform: translateY(calc(-1*var(--flipScale)/2))rotateY(540deg)translateZ(0.1px);
+}
+
 
 //fade in
 #fade {
@@ -161,7 +233,8 @@ a {
 
 *{
 	--dieScale:   400px;
-	--dieScale2:  407px;
+	--dieScale2:  406px;
 	--octaScale:  300px;
 	--octaScale2: 305px;
+	--flipScale:  400px;
 }
