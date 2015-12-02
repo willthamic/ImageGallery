@@ -25,6 +25,7 @@
 				<a href="javascript:set(  0, 90,0, 1)"><input type="button" value="4"></a>
 				<a href="javascript:set(-90,  0,0, 1)"><input type="button" value="5"></a>
 				<a href="javascript:set( 90,  0,0, 1)"><input type="button" value="6"></a>
+				<a href="javascript:randomSide(1);"><input type="button" value="?"></a>
 			</div>
 		</div>
 		<div style="border:1px solid black; border-bottom:0px; height:870px; width:850px; margin:auto;">
@@ -43,6 +44,7 @@
 			<div style="text-align:center;">
 				<a href="javascript:octaCurY = octaCurY+45; set(0,octaCurY,0,2);"><input type="button" value="-"></a>
 				<a href="javascript:octaCurY = octaCurY-45; set(0,octaCurY,0,2);"><input type="button" value="+"></a>
+				<a href="javascript:randomSide(2);"><input type="button" value="?"></a>
 			</div>
 		</div>
 		<div style="border:1px solid black; border-bottom:0px; height:550px; width:850px; margin:auto;">
@@ -57,6 +59,7 @@
 			<div style="text-align:center;">
 				<a href="javascript:if (flipReady) {flipCurY = flipCurY+180; set(0,flipCurY,0,3);};"><input type="button" value="-"></a>
 				<a href="javascript:if (flipReady) {flipCurY = flipCurY-180; set(0,flipCurY,0,3);};"><input type="button" value="+"></a>
+				<a href="javascript:javascript:randomSide(3);"><input type="button" value="?"></a>
 			</div>
 		</div>
 		<div id="fade" class="normal" style="position:absolute;"></div>
@@ -106,8 +109,42 @@
 				document.getElementById("flipContainer").style.transform = "rotateX("+flipCurX+"deg) rotateY("+flipCurY+"deg) rotateZ("+flipCurZ+"deg)";
 			}
 			
+			function getRandom(min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+			
+			function randomSide(shape) {
+				if (shape == 1) {
+					switch (getRandom(1,6)) {
+						case 1:
+							javascript:set(  0,  0,0, 1)
+							break;
+						case 2:
+							javascript:set(  0,-90,0, 1)
+							break;
+						case 3:
+							javascript:set(  0,180,0, 1)
+							break;
+						case 4:
+							javascript:set(  0, 90,0, 1)
+							break;
+						case 5:
+							javascript:set(-90,  0,0, 1)
+							break;
+						case 6:
+							javascript:set( 90,  0,0, 1)
+							break;
+					} 
+				} else if (shape == 2) {
+					octaCurY = getRandom(0,7)*45; 
+					set(0,octaCurY,0,2);
+				} else if (shape == 3) {
+					flipCurY = getRandom(0,3)*180; 
+					set(0,flipCurY,0,3);
+				}
+			}
+			
 			function flipSwitch() {
-				console.log(flipCurY%720);
 				if (flipCurY%720==0||flipCurY%720==-180||flipCurY%720==540) {
 					document.getElementById("flip1").style.opacity = 1;
 					document.getElementById("flip2").style.opacity = 1;
