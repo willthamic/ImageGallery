@@ -209,7 +209,126 @@ a {
 	background-color:green;
 	transform: translateY(calc(-1*var(--flipScale)/2))rotateY(540deg)translateZ(0.1px);
 }
+/*
+ #######    ######   ##     ##  ########   
+##     ##  ##    ##  ##     ##  ##         
+##     ##  ##        ##     ##  ##         
+##     ##  ##        #########  ######     
+##     ##  ##        ##     ##  ##         
+##     ##  ##    ##  ##     ##  ##         
+ #######    ######   ##     ##  ########   
+*/
+.oche1 p {
+	font-size:150px;
+	font-family:sans-serif;
+	text-align:center;
+	margin-top:125px;
+	margin-left:-40px;
+	color:white;
+}
 
+.oche2 p {
+	font-size:150px;
+	font-family:sans-serif;
+	text-align:center;
+	margin-top:125px;
+	margin-left:40px;
+	color:white;
+	transform:rotateZ(180deg);
+}
+
+#ocheContainer {
+	width:var(--ocheScale);
+	margin:auto;
+	margin-top:325px;
+	transform-style: preserve-3d;
+	transition: all 0.4s;
+	perspective-origin: center;
+}
+
+.oche-face {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 calc(var(--ocheScale)/2) calc(var(--ocheScale)*0.866) calc(var(--ocheScale)/2);
+	position:absolute;
+}
+
+.oche-face-1{
+	border-color: transparent transparent red;
+	transform: 
+		translateY(calc(-1*var(--ocheScale)/2))
+		rotateY(   0deg)
+		rotateX(  35deg)
+		translateZ(calc(var(--ocheScale)/3.3));
+}
+
+.oche-face-2{
+	border-color: transparent transparent blue;
+	transform: 
+		translateY(calc(-1*var(--ocheScale)/2))
+		rotateY(  90deg)
+		rotateX(  35deg)
+		translateZ(calc(var(--ocheScale)/3.3));
+}
+
+.oche-face-3{
+	border-color: transparent transparent yellow;
+	transform: 
+		translateY(calc(-1*var(--ocheScale)/2))
+		rotateY( 180deg)
+		rotateX(  35deg)
+		translateZ(calc(var(--ocheScale)/3.3));
+}
+
+.oche-face-4{
+	border-color: transparent transparent green;
+	transform: 
+		translateY(calc(-1*var(--ocheScale)/2))
+		rotateY( -90deg)
+		rotateX(  35deg)
+		translateZ(calc(var(--ocheScale)/3.3));
+}
+
+.oche-face-5{
+	border-color: transparent transparent purple;
+	transform: 
+		rotateZ(180deg)
+		translateY(calc(1*var(--ocheScale)/7.1))
+		rotateY(   0deg)
+		rotateX(  35deg)
+		translateZ(calc(var(--ocheScale)/3.3));
+}
+
+.oche-face-6{
+	border-color: transparent transparent pink;
+	transform: 
+		rotateZ(180deg)
+		translateY(calc(1*var(--ocheScale)/7.1))
+		rotateY(  90deg)
+		rotateX(  35deg)
+		translateZ(calc(var(--ocheScale)/3.3));
+}
+
+.oche-face-7{
+	border-color: transparent transparent orange;
+	transform: 
+		rotateZ(180deg)
+		translateY(calc(1*var(--ocheScale)/7.1))
+		rotateY( 180deg)
+		rotateX(  35deg)
+		translateZ(calc(var(--ocheScale)/3.3));
+}
+
+.oche-face-8{
+	border-color: transparent transparent brown;
+	transform: 
+		rotateZ(180deg)
+		translateY(calc(1*var(--ocheScale)/7.1))
+		rotateY( -90deg)
+		rotateX(  35deg)
+		translateZ(calc(var(--ocheScale)/3.3));
+}
 
 //fade in
 #fade {
@@ -237,4 +356,5 @@ a {
 	--octaScale:  300px;
 	--octaScale2: 305px;
 	--flipScale:  400px;
+	--ocheScale:  400px;
 }

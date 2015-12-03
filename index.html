@@ -62,6 +62,31 @@
 				<a href="javascript:javascript:randomSide(3);"><input type="button" value="?"></a>
 			</div>
 		</div>
+		<div style="border:1px solid black; border-bottom:0px; height:720px; width:750px; margin:auto;">
+			<div id="ocheContainer">
+				<div class="oche-face oche-face-1 oche1"><p>1</p></div>
+				<div class="oche-face oche-face-2 oche1"><p>2</p></div>
+				<div class="oche-face oche-face-3 oche1"><p>3</p></div>
+				<div class="oche-face oche-face-4 oche1"><p>4</p></div>
+				<div class="oche-face oche-face-5 oche2"><p>5</p></div>
+				<div class="oche-face oche-face-6 oche2"><p>6</p></div>
+				<div class="oche-face oche-face-7 oche2"><p>7</p></div>
+				<div class="oche-face oche-face-8 oche2"><p>8</p></div>
+			</div>
+		</div>
+		<div style="border:1px solid black; border-top:0px; height:50px; width:750px; margin:auto;">
+			<div style="text-align:center;">
+				<a href="javascript:set(-35,  0,0, 4)"><input type="button" value="1"></a>
+				<a href="javascript:set(-35,-90,0, 4)"><input type="button" value="2"></a>
+				<a href="javascript:set(-35,180,0, 4)"><input type="button" value="3"></a>
+				<a href="javascript:set(-35, 90,0, 4)"><input type="button" value="4"></a>
+				<a href="javascript:set( 35,  0,0, 4)"><input type="button" value="5"></a>
+				<a href="javascript:set( 35,-90,0, 4)"><input type="button" value="6"></a>
+				<a href="javascript:set( 35,180,0, 4)"><input type="button" value="7"></a>
+				<a href="javascript:set( 35, 90,0, 4)"><input type="button" value="8"></a>
+				<a href="javascript:randomSide(4);"><input type="button" value="?"></a>
+			</div>
+		</div>
 		<div id="fade" class="normal" style="position:absolute;"></div>
 		<script>
 			
@@ -77,6 +102,9 @@
 				flipCurX  =   0,
 			    flipCurY  =   0,
 			    flipCurZ  =   0,
+				ocheCurX  =   0,
+			    ocheCurY  =   0,
+			    ocheCurZ  =   0,
 				increment = 7.5,
 				debug   = false,
 				flipReady= true,
@@ -103,10 +131,15 @@
 					flipReady=false;
 					setTimeout(function(){flipSwitch();  }, 300);
 					setTimeout(function(){flipReady=true;}, 600);
+				} else if (shape == 4) {				//check if shape 4
+					ocheCurX = nX;						//
+					ocheCurY = nY;						//set variables
+					ocheCurZ = nZ;						//
 				}
 				document.getElementById( "dieContainer").style.transform = "rotateX("+ dieCurX+"deg) rotateY("+ dieCurY+"deg) rotateZ("+ dieCurZ+"deg)";
 				document.getElementById("octaContainer").style.transform = "rotateX("+octaCurX+"deg) rotateY("+octaCurY+"deg) rotateZ("+octaCurZ+"deg)";
 				document.getElementById("flipContainer").style.transform = "rotateX("+flipCurX+"deg) rotateY("+flipCurY+"deg) rotateZ("+flipCurZ+"deg)";
+				document.getElementById("ocheContainer").style.transform = "rotateX("+ocheCurX+"deg) rotateY("+ocheCurY+"deg) rotateZ("+ocheCurZ+"deg)";
 			}
 			
 			function getRandom(min, max) {
@@ -141,7 +174,34 @@
 				} else if (shape == 3) {
 					flipCurY = getRandom(0,3)*180; 
 					set(0,flipCurY,0,3);
-				}
+				} else if (shape == 4) {
+					switch (getRandom(1,8)) {
+						case 1:
+							javascript:set( 35,  0,0, 4)
+							break;
+						case 2:
+							javascript:set( 35,-90,0, 4)
+							break;
+						case 3:
+							javascript:set( 35,180,0, 4)
+							break;
+						case 4:
+							javascript:set( 35, 90,0, 4)
+							break;
+						case 5:
+							javascript:set(-35,  0,0, 4)
+							break;
+						case 6:
+							javascript:set(-35,-90,0, 4)
+							break;
+						case 7:
+							javascript:set(-35,180,0, 4)
+							break;
+						case 8:
+							javascript:set(-35, 90,0, 4)
+							break;
+					}
+				} 
 			}
 			
 			function flipSwitch() {
@@ -175,6 +235,11 @@
 						var ySpace = new Array(10 - flipCurY.toFixed(1).length).join(" ");
 						var zSpace = new Array(10 - flipCurZ.toFixed(1).length).join(" ");
 						console.log(shape + " "  + dir + ": " + xSpace + flipCurX.toFixed(1) + "," + ySpace + flipCurY.toFixed(1) + "," + zSpace + flipCurZ.toFixed(1)); //log
+					} else if (shape == "Oche") {
+						var xSpace = new Array(10 - ocheCurX.toFixed(1).length).join(" "); //see lines 78-80
+						var ySpace = new Array(10 - ocheCurY.toFixed(1).length).join(" ");
+						var zSpace = new Array(10 - ocheCurZ.toFixed(1).length).join(" ");
+						console.log(shape + " "  + dir + ": " + xSpace + ocheCurX.toFixed(1) + "," + ySpace + ocheCurY.toFixed(1) + "," + zSpace + ocheCurZ.toFixed(1)); //log
 					} else {
 						console.log("Unrecognized Shape"); //error log
 					}
@@ -220,8 +285,8 @@
 						output("Octa", "-Y");									//log
 					}
 					set(octaCurX,octaCurY,octaCurZ,2);							//Set Rotation
-				} else if (x < 1540&&x >= 770&&flipReady) { 								//Check if page offset is section 2
-					if (e.keyCode == '87'&&flipCurX>-82.5) {			//W Key & flip prevention
+				} else if (x < 770*2&&x >= 770&&flipReady) { 					//Check if page offset is section 2
+					if (e.keyCode == '87'&&flipCurX>-82.5) {					//W Key & flip prevention
 						flipCurX = flipCurX - 180;								//decrement X
 						output("Flip", "-X");									//log
 					}
@@ -238,6 +303,24 @@
 						output("Flip", "-Y");									//log
 					}
 					set(flipCurX,flipCurY,flipCurZ,3);							//Set Rotation
+				} else if (x < 770*3&&x >= 770*2) { 							//Check if page offset is section 4
+					if (e.keyCode == '87'&&ocheCurX>-90) {						//W Key & flip prevention
+						ocheCurX = ocheCurX - increment;						//decrement X
+						output("Oche", "-X");									//log
+					}
+					else if (e.keyCode == '83'&&ocheCurX<90) {					//S Key & flip prevention
+						ocheCurX = ocheCurX + increment;						//increment X
+						output("Oche", "+X");									//log
+					}
+					else if (e.keyCode == '65') { 								//A Key
+						ocheCurY = ocheCurY + increment;						//increment Y
+						output("Oche", "+Y");									//log
+					}
+					else if (e.keyCode == '68') { 								//D Key
+						ocheCurY = ocheCurY - increment;						//decrement Y
+						output("Oche", "-Y");									//log
+					}
+					set(ocheCurX,ocheCurY,ocheCurZ,4);							//Set Rotation
 				}
 			}
 			function debugging (input) {
@@ -250,6 +333,7 @@
 				output("Die" ,"  ");
 				output("Octa","  ");
 				output("Flip","  ");
+				output("Oche","  ");
 			}
 		</script>
     </body>
